@@ -1,0 +1,98 @@
+
+# ctr+shift+c(一括コメント)
+
+#これにより深さと増加量のグラフをすべて生成
+
+#initialize
+total_height<-0
+total_increase<-0
+ave_height<-0
+ave_increase<-0
+
+#filename
+before_workspace <- "/home/ax909424/r"
+after_workspace  <- "/simulation_result"
+expand           <- "/homo_path"
+date             <- "/20181105"
+
+#マクロもどき
+FIRST_SHARE      <- 1
+TOTAL_SHARE      <- 2
+HEIGHT           <- 3
+VALUE_THETA      <- 4
+
+AVERAGE_INCREASE <- 1
+AVERAGE_HEIGHT   <- 2
+
+MAX_FIRST_SHARE  <- 20
+SPLIT            <- 11
+
+#------create total data matrix( 10000 colums * 220 rows)-----------------
+  for(i in 1 : MAX_FIRST_SHARE){
+    #filenameにファイル名を入れて、valueにその値を格納
+    filename <- paste(before_workspace , after_workspace , expand , date ,"/value_first=",i,".txt",sep="")
+    
+    #read_txt_table:初期共有者,情報共有者,深さ,ニュースの値を格納する行列(110000 * 4)
+    read_txt_table = read.table(filename,header=FALSE,sep=" ")
+    
+    
+    for(j in 1 : SPLIT){
+      #thetaの値ごとにソート:temp~~ <- read_txt_table[該当行 , 欲しい情報]
+      temp_height <- read_txt_table[read_txt_table[ , VALUE_THETA] == (j-1) / 10.0 , HEIGHT]
+      temp_increase <- read_txt_table[
+                        read_txt_table[ , VALUE_THETA] == (j-1) / 10.0 , TOTAL_SHARE] - read_txt_table[read_txt_table[ , VALUE_THETA] == (j-1) / 10.0
+                      , FIRST_SHARE
+                      ]
+      
+      #一番最初だけtotalに代入し、それ以外は結合
+      if(i == 1 && j==1 && (j-1) / 10 == 0){
+        total_height <- temp_height
+        total_increase <- temp_increase
+      }
+      else{
+        total_height <- cbind(total_height , temp_height)
+        total_increase <- cbind(total_increase , temp_increase)
+      }
+      
+    }
+  }
+  
+  
+  #-------calculate 1*220 average matrix , increase and height---------
+  for(i in 1:220){
+    ave_height[i] <- mean(total_height[,i])  
+    ave_increase[i] <- mean(total_increase[,i])
+  }
+  #--------------------------------------------------------------------
+  
+  #Average[,1]:increase , Average[,2]:height
+  Average<-cbind(ave_increase,ave_height)
+  
+  k_first<-c(1,11)
+  k_end<-c(10,20)
+  inc_hei<-c("increase","height")
+  main_thema<-c("increase and theta","height and theta")
+  cols<-c("black","red","blue","green","purple","cyan","pink","lightblue","mistyrose","lavender")
+  
+  #create 4 images
+  #i:information's kind , j:launch 1 or 11 , k:draw line
+  for(i in 1:2){
+    for(j in 1:2){
+      png(paste("/home/ax909424/r/image/",expand,"/",inc_hei[i],".png",sep=""),width=800,height=600)
+      plot(0,0,type="n",xlim=range(0,11),ylim=range(0,20),xlab="theta",ylab=inc_hei[i],main=main_thema[i])
+      k_range<-k_first[j]:k_end[j]
+      
+      for(k in k_range){
+        head=11*(k-1)+1
+        tail=11*k
+        if(k%%10==0)
+          lines(0:10,Average[head:tail,i],col=cols[10],lty="solid")
+        else
+          lines(0:10,Average[head:tail,i],col=cols[k%%10],lty="solid")
+      }
+      
+      legend("topright",legend=k_range,col=cols,lty="solid")
+      dev.off()
+    }
+    
+  }
