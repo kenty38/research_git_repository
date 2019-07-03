@@ -1,0 +1,63 @@
+
+#include "function.h"
+
+/************************************************
+ *												*
+ * void set_firstInf_SIR(struct Node)			*
+ * -set_firstInfのSIRモデル版。					*
+ * -SIRモデルで使われるstatementの情報を更新する。	*
+ * 												*
+ ************************************************/
+
+void set_firstInf_SIR(struct Node nn[n][n]){
+	int i;			//作業用変数
+	int f_shared;	//初期情報共有者のノード番号をランダムに決める
+
+
+	//初期共有者の値をinfected_countへ代入
+	infected_count=rand_Igauss(18.73,9.63);
+
+	if(infected_count==0)infected_count=1;
+
+	if((fp=fopen(filename,"a"))==NULL)
+			printf("ファイルをオープンできません\n");
+
+	else{
+				fprintf(fp,"%d ",infected_count);
+	}
+
+	i=0;
+#ifndef	DEBUG
+	infected_count=4;
+#endif
+	//printf("共有者：%d\n",infected_count);
+
+	//初期情報共有者のデータを入力
+	do{
+		f_shared=rand()%(n*n);
+
+		if(nn[f_shared/n][f_shared%n].statement=='S'){
+
+			nn[f_shared/n][f_shared%n].height=1;
+			nn[f_shared/n][f_shared%n].statement='I';
+
+			if(i==0){
+				HeadInsert(nn[f_shared/n][f_shared%n].x,nn[f_shared/n][f_shared%n].y,&head,&tail);
+			}
+			else{
+				Insert(nn[f_shared/n][f_shared%n].x,nn[f_shared/n][f_shared%n].y,&tail);
+			}
+
+			//値の変更
+			//nn[f_shared/n][f_shared%n].omega=theta+delta;
+
+			//各ノードによる偏見
+			nn[f_shared/n][f_shared%n].node_theta=nn[f_shared/n][f_shared%n].omega+(2*Uniform()-1)*0.015;
+			i++;
+
+		}
+	}while(i<infected_count);
+
+	fclose(fp);
+
+}

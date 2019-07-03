@@ -1,0 +1,132 @@
+
+#ifndef FUNCTION_H_
+
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+#include<time.h>
+#include<string.h>
+
+#define DEBUG			  	//一回のみシミュレーションを行う時
+#define BA			  	//BAモデルでシミュレーションする時
+#define SIR			  	//WSのSIRモデルでシミュレーションをする時
+
+#define NODE_THETA	  	//node_thetaを用いて判定する時
+#define NON_DESTRIBUTION//初期共有者人数を固定して行う
+
+#ifndef DEBUG
+	#define n 4
+#endif
+
+
+#define n 70					//n*nで総人数になる
+#define delta 0.015		//意見を共有するかどうかの境界
+
+#define m 3				//BAモデルで使用する、追加する点の辺の数
+#define m0 3			//BAモデルで使用する、最初の完全グラフの点の数
+
+//辺の数
+#ifdef BA
+   #define N m*(n*n-m)+(m*(m-1))/2   	//BAモデル時に使用
+#endif
+
+#define beta 23.84/(n*n)		//感染率{情報共有者の平均を総人数で割ったもの(23.84/(n*n))}
+//#define gamma 1.0/10.0			//回復率{(1/日数)で定義(この場合は1/8)}
+
+FILE *fp;						//ファイルへのポインタ
+char filename[FILENAME_MAX];		//ファイル名
+
+float theta;					//陰謀論
+
+//SIRモデル時に使用
+int 	time;										//時間
+int 	infected_count;				//感染者の人数
+float gamma_denominator;		//gammaの分母
+int 	lifetime_hour;				//lifetimeを設定するときに使う変数
+float large_gamma;					//回復率{(1/日数)で定義,大量にデータを確保する時はマクロではなくこちらを使用
+
+struct Edge{			//Edgeの構成
+	float vec;			//思考ベクトル
+	int start;				//始点（s<f）
+	int finish;				//終点
+};
+
+typedef struct Node{	 	 //Nodeの構成
+		int 		node_number; //各ノードに振り分ける番号で、これにより座標を獲得する
+		float 	omega;   	 	 //option
+		float 	node_theta;	 //共有者によって変えられるtheta
+		float  	deltaex;
+		int 		x;				 	 //x座標
+		int 		y;				 	 //y座標
+		int 		height;			 //高さ
+		double 	cluster;	 	 //クラスター係数
+		int 		degree;			 //次数
+		int 		*ad_list;		 //隣接リスト
+		char 		statement;	 //SIRモデルにおける状態
+		int     lifetime;		 //隣人の数に応じて変わる、情報の寿命
+}t_Node;
+
+struct Cell{
+	int x;						 //x座標
+	int y;						 //y座標
+	struct Cell *next;			 //次のセルのポインタ
+};
+
+struct Cell *head;
+struct Cell *tail;
+
+
+//多重配列のプロトタイプ宣言は最後に数値を入れる
+//main関数に使われる関数
+extern void set_value(struct Node[][n]);
+
+extern void set_firstInf_SIR(struct Node[][n]);
+
+extern void set_edge_BA(struct Node[][n],struct Edge[]);
+
+extern void make_ad_list(struct Node[][n],struct Edge[];
+
+extern void clustering_BA(struct Node[][n],struct Edge[]);
+
+extern void omega_renew(struct Node[][n],struct Edge[]);
+
+extern void spreading_theories_SIR(struct Node[][n],struct Edge[]);
+
+extern void init_until_1000(struct Node[][n],int *);
+
+
+//乱数を用いて分布を表す関数
+//0~1の一様乱数
+extern double Uniform(void);
+
+extern double rand_normal(double,double);
+
+extern double rand_lnormal(double,double);
+
+extern double rand_Igauss(double , double);
+
+extern double poisson(double);
+
+
+//上記の関数内で使われる関数
+extern void TraverseList(struct Cell *);
+
+extern void HeadInsert(int ,int ,struct Cell **,struct Cell **);
+
+extern void Insert(int ,int ,struct Cell **);
+
+extern void freeList(struct Cell *);
+
+extern void allDeleteList(struct Cell *);
+
+extern void deleteList(struct Cell *);
+
+extern void Qsort(int x[],int left,int right);
+
+extern void Swap(int x[],int i,int j);
+
+//ファイルへ入力するための関数
+extern void file_value(struct Node[][n],struct Edge[]);
+
+#define FUNCTION_H_
+#endif /* FUNCTION_H_ */
