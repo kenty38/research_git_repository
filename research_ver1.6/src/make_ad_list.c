@@ -26,7 +26,7 @@ void make_ad_list(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[]){
 		nn[i/ONE_SIDE][i%ONE_SIDE].ad_list=malloc(sizeof (int)*nn[i/ONE_SIDE][i%ONE_SIDE].degree);
 		
 		//lifetime設定
-		nn[i/ONE_SIDE][i%ONE_SIDE].lifetime=lifetime_hour*(8/nn[i/ONE_SIDE][i%ONE_SIDE].degree);
+		//nn[i/ONE_SIDE][i%ONE_SIDE].lifetime=LIFETIME_DAY;//*(8/nn[i/ONE_SIDE][i%ONE_SIDE].degree);
 
 		count=0;
 
@@ -49,7 +49,7 @@ void make_ad_list(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[]){
 			Qsort(nn[i/ONE_SIDE][i%ONE_SIDE].ad_list,0,nn[i/ONE_SIDE][i%ONE_SIDE].degree-1);
 		i++;
 	}
-		//ad_list_check(nn);
+		ad_list_check(nn);
 }
 
 

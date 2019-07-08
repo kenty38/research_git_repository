@@ -58,7 +58,10 @@
 #define EDGE_NUMBER				    4 * ONE_SIDE * ONE_SIDE						//WSの時
 #define EDGE_NUMBER_BA        ADD_EDGE*(ONE_SIDE*ONE_SIDE-ADD_EDGE)+(ADD_EDGE*(ADD_EDGE-1))/2
 
-#define LIFETIME_DAY				//lifetimeを設定するときに使う変数
+//lifetimeを設定するときに使う変数
+#define LIFETIME_DAY					1
+
+#define INFECTED_PROBABIRITY 		23.84 / (ONE_SIDE * ONE_SIDE)		//感染率{情報共有者の平均を総人数で割ったもの(23.84/(ONE_SIDE*ONE_SIDE))}
 
 //辺の状態を示すための列挙型
 enum EDGE_STATUS{
@@ -66,7 +69,6 @@ enum EDGE_STATUS{
 	NONHOMOGENEOUS
 };
 
-#define INFECTED_PROBABIRITY 		23.84 / (ONE_SIDE * ONE_SIDE)		//感染率{情報共有者の平均を総人数で割ったもの(23.84/(ONE_SIDE*ONE_SIDE))}
 
 FILE *fp;							//ファイルへのポインタ
 char filename[FILENAME_MAX];		//ファイル名

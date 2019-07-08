@@ -43,7 +43,9 @@ int main(){
 
 			//初期情報共有者を分布に従って入れる
 			set_firstInf_SIR(node,first_shared);
-
+			
+			
+			
 			//辺の情報を格納
 			set_edge_BA(node,edge);
 
@@ -63,7 +65,7 @@ int main(){
 				//情報拡散
 				spreading_theories_SIR(node,edge);
 				for(i=0;i<ONE_SIDE*ONE_SIDE;i++)
-					printf("%d.statement=[%c]\n",node[i/ONE_SIDE][j%ONE_SIDE].node_number,node[i/ONE_SIDE][j%ONE_SIDE].statement);
+					printf("%d.statement=[%c]\n",node[i/ONE_SIDE][i%ONE_SIDE].node_number,node[i/ONE_SIDE][i%ONE_SIDE].statement);
 				exit(1);
 				//ファイル出力
 				file_value(node,edge);

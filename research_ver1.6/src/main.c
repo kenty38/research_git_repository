@@ -43,7 +43,9 @@ int main(){
 
 			//初期情報共有者を分布に従って入れる
 			set_firstInf_SIR(node,first_shared);
-
+			
+			TraverseList(head);
+			
 			//辺の情報を格納
 			set_edge_BA(node,edge);
 

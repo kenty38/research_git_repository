@@ -29,33 +29,36 @@ void spreading_theories_SIR(struct Node nn[ONE_SIDE][ONE_SIDE], struct Edge e[ED
 			//S,Rは飛ばす
 			if( nn[temp->x][temp->y].statement=='S' || nn[temp->x][temp->y].statement=='R'){
 				temp=temp->next;
+				//puts("次行くお_スキップ");
 				//printf("飽きているので飛ばします\n");
 				continue;
 			}
-
+			
+			//printf("temp:%d\n",nn[temp->x][temp->y].node_number);
+			
 			//隣接リストの個数分だけ情報を広げる
 			while(i<nn[temp->x][temp->y].degree){
 
 				temp_ad=nn[temp->x][temp->y].ad_list[i];
 
 				//情報を共有するかどうか判断する
-				agree_SIR(nn,nn[temp->x][temp->y].ad_list[i],
-						temp->x,temp->y,&infected_count);
+				agree_SIR(nn,nn[temp->x][temp->y].ad_list[i],temp->x,temp->y,&infected_count);
 				i++;
 				pro_remedy=Uniform();
 
 				//情報を流す度に、一定の確率でI→Rにする(非共有者がI,Rの時のみ)
-				if(pro_remedy<large_gamma){
+				if(pro_remedy>0){
 					if(nn[temp_ad/ONE_SIDE][temp_ad%ONE_SIDE].statement=='I' ||
 						nn[temp_ad/ONE_SIDE][temp_ad%ONE_SIDE].statement=='R'){
 
 						//printf("途中で終わりました(%d/%d)\n",i,nn[temp->x][temp->y].degree);
 						nn[temp->x][temp->y].statement='R';
-						infected_count--;
+						//infected_count--;
 						break;
 					}
 				}
 			}
+/*
 #ifdef DEBUG
 			//隣人のlifetimeの合計を計算
 			for(j=0;j<nn[temp->x][temp->y].degree;j++){
@@ -69,7 +72,9 @@ void spreading_theories_SIR(struct Node nn[ONE_SIDE][ONE_SIDE], struct Edge e[ED
 				infected_count--;
 			}
 #endif
+*/
 			temp=temp->next;
+			puts("次行くお_大枠");
 
 		}while(temp!=NULL);
 
@@ -82,6 +87,39 @@ void spreading_theories_SIR(struct Node nn[ONE_SIDE][ONE_SIDE], struct Edge e[ED
 
 	}
 }
+
+void agree_SIR(struct Node nn[ONE_SIDE][ONE_SIDE] , int edgedot, int launch_x, int launch_y,int *p){
+	float pro_infected;	//確率、beta以下で情報を共有
+	//printf("edgedot=%d,launch_x=%d,launch_y=%d\n",edgedot,launch_x,launch_y);
+
+	//Iの相手がSの時だけ噂を広げる
+	if(nn[edgedot/ONE_SIDE][edgedot%ONE_SIDE].statement=='S'){
+
+		if(nn[edgedot/ONE_SIDE][edgedot%ONE_SIDE].lifetime<=0){
+
+			return;
+		}
+
+		//pro_infected=Uniform();
+			pro_infected=1;
+
+		if(pro_infected>0){
+			Insert(edgedot/ONE_SIDE,edgedot%ONE_SIDE,&tail);
+			puts("感染するお");
+			TraverseList(head);
+			nn[edgedot/ONE_SIDE][edgedot%ONE_SIDE].height=nn[launch_x][launch_y].height+1;
+			nn[edgedot/ONE_SIDE][edgedot%ONE_SIDE].statement='I';
+			*p=*p+1;
+		}
+
+		nn[edgedot/ONE_SIDE][edgedot%ONE_SIDE].lifetime--;
+
+	}
+}
+
+
+
+
 
 void agree(struct Node nn[ONE_SIDE][ONE_SIDE] , int edgedot, int launch_x, int launch_y){
 
@@ -108,43 +146,5 @@ void agree(struct Node nn[ONE_SIDE][ONE_SIDE] , int edgedot, int launch_x, int l
 
 	}
 }
-
-
-/**************************************************************
- *														  	  *
- * void spreading_theories(struct Node,struct Edge,int,int)	  *
- * -情報を共有するかどうかの関数。							  	  *
- * -lauch_x,launch_yは情報共有者の座標を表す。				  *
- * -感染率betaの確率で情報を共有するようにする。				  *
- * -*pはinfected_countであり、情報を共有するたび1増やす。    	  *
- **************************************************************/
-
-void agree_SIR(struct Node nn[ONE_SIDE][ONE_SIDE] , int edgedot, int launch_x, int launch_y,int *p){
-	float pro_infected;	//確率、beta以下で情報を共有
-	//printf("edgedot=%d,launch_x=%d,launch_y=%d\n",edgedot,launch_x,launch_y);
-
-	//Iの相手がSの時だけ噂を広げる
-	if(nn[edgedot/ONE_SIDE][edgedot%ONE_SIDE].statement=='S'){
-
-		if(nn[edgedot/ONE_SIDE][edgedot%ONE_SIDE].lifetime==0){
-
-			return;
-		}
-
-		//pro_infected=Uniform();
-			pro_infected=1;
-
-		if(pro_infected>0){
-			Insert(edgedot/ONE_SIDE,edgedot%ONE_SIDE,&tail);
-			nn[edgedot/ONE_SIDE][edgedot%ONE_SIDE].height=nn[launch_x][launch_y].height+1;
-			nn[edgedot/ONE_SIDE][edgedot%ONE_SIDE].statement='I';
-			*p=*p+1;
-		}
-
-		nn[edgedot/ONE_SIDE][edgedot%ONE_SIDE].lifetime--;
-
-	}
-}
-
 
 
