@@ -1,9 +1,3 @@
-/*
- * function.h
- *
- *  Created on: 2017/10/24
- *      Author: f0416028-2
- */
 
 #ifndef FUNCTION_H_
 
@@ -25,7 +19,7 @@
 #endif
 
 //ONE_SIDE*nで総人数になる
-#define ONE_SIDE 	       			    10
+#define ONE_SIDE 	       			    4
 
 //グラフの辺の総本数*rでつなぎ直す辺の数
 #define REWIRING_COUNT              	ONE_SIDE * ONE_SIDE * 0.01
@@ -62,6 +56,8 @@
 
 //辺の数
 #define EDGE_NUMBER				    4 * ONE_SIDE * ONE_SIDE						//WSの時
+
+#define EDGE_NUMBER_BA        ADD_EDGE*(ONE_SIDE*ONE_SIDE-ADD_EDGE)+(ADD_EDGE*(ADD_EDGE-1))/2
 
 //辺の状態を示すための列挙型
 enum EDGE_STATUS{

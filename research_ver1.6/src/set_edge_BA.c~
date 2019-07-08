@@ -1,16 +1,18 @@
 
 #include "function.h"
 
+
+
 void check_degree(struct Node n3[ONE_SIDE][ONE_SIDE]);
 
-void set_edge_BA(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[ADD_EDGE*(ONE_SIDE*ONE_SIDE-ADD_EDGE)+(ADD_EDGE*(ADD_EDGE-1))/2]){
+void set_edge_BA(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[EDGE_NUMBER_BA]){
 	int i,j,ve,found,done[ADD_EDGE];
 	int M=0;
 	int count;
 	//int ave_degree=0;
 
 	//Eには始点と終点がひとつずつ入るようになっているため、eには二つ情報を入れる
-	int E[2*(ADD_EDGE*(ONE_SIDE*ONE_SIDE-ADD_EDGE)+(ADD_EDGE*(ADD_EDGE-1))/2)];
+	int E[2*EDGE_NUMBER_BA];
 
 	//初期条件は頂点m0つの完全グラフ
 	for(i=0;i<FIRST_PERFECT_GRAPH_NODE;i++){
@@ -58,7 +60,7 @@ void set_edge_BA(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[ADD_EDGE*(ONE_
 
 
 	//edgeに始点と終点の情報を格納
-	for(i=0;i<ADD_EDGE*(ONE_SIDE*ONE_SIDE-ADD_EDGE)+(ADD_EDGE*(ADD_EDGE-1))/2;i++){
+	for(i=0;i<EDGE_NUMBER_BA;i++){
 		if(E[2*i]<E[2*i+1]){
 			e[i].start=E[2*i];
 			e[i].finish=E[2*i+1];
@@ -75,7 +77,7 @@ void set_edge_BA(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[ADD_EDGE*(ONE_
 	init_status(e);
 	input_status(nn,e);
 	
-	//check_degree(nn);
+	check_degree(nn);
 }
 
 

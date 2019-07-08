@@ -9,8 +9,8 @@
 
 #include"function.h"
 
-void init_status(struct Edge e[EDGE_NUMBER]);
-void input_status(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[EDGE_NUMBER]);
+void init_status(struct Edge e[EDGE_NUMBER_BA]);
+void input_status(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[EDGE_NUMBER_BA]);
 
 void set_edge(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[EDGE_NUMBER]){
 
@@ -79,7 +79,7 @@ void set_edge(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[EDGE_NUMBER]){
 void init_status(struct Edge e[EDGE_NUMBER]){
 	int i;
 
-	for(i = 0 ; i < EDGE_NUMBER ; i++)
+	for(i = 0 ; i < EDGE_NUMBER_BA ; i++)
 		e[i].status=NONHOMOGENEOUS;
 }
 
@@ -89,7 +89,7 @@ void input_status(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[EDGE_NUMBER])
 
 	int i;
 
-	for(i = 0 ; i < EDGE_NUMBER ; i++){
+	for(i = 0 ; i < EDGE_NUMBER_BA ; i++){
 
 		if(fabs(nn[e[i].start / ONE_SIDE][e[i].start % ONE_SIDE].omega - nn[e[i].finish / ONE_SIDE][e[i].finish % ONE_SIDE].omega) < DELTA){
 			e[i].status = HOMOGENEOUS;

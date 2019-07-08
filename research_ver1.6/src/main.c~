@@ -47,10 +47,6 @@ int main(){
 			//辺の情報を格納
 			set_edge_BA(node,edge);
 
-			//ネットワークの繋ぎ直し
-			//rewiring_network(node,edge);
-			//for(i=0;i<N;i++)printf("edge[%d]=%d - %d\n",i,edge[i].s,edge[i].f);
-
 			//隣接リスト生成
 			make_ad_list(node,edge);
 			exit(1);
@@ -66,7 +62,7 @@ int main(){
 					theta+=THETA_INCREASE;
 
 				//情報拡散
-				spreading_theories(node,edge);
+				spreading_theories_SIR(node,edge);
 
 				//ファイル出力
 				file_value(node,edge);
@@ -172,18 +168,5 @@ void note(void){
 	fclose(fp);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

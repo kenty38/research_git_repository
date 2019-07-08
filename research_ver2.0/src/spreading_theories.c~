@@ -1,14 +1,5 @@
-/*
- * spreading_theories.c
- *
- *  Created on: 2017/10/24
- *      Author: f0416028-2
- */
-
 
 #include"function.h"
-
-extern void agree(struct Node nn[][n] , int,int,int);
 
 extern void agree_SIR(struct Node nn[][n] , int,int,int,int *);
 

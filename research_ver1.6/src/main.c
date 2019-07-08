@@ -62,7 +62,7 @@ int main(){
 					theta+=THETA_INCREASE;
 
 				//情報拡散
-				spreading_theories(node,edge);
+				spreading_theories_SIR(node,edge);
 
 				//ファイル出力
 				file_value(node,edge);
@@ -86,8 +86,6 @@ int main(){
 
 	return 0;
 }
-
-
 
 
 
@@ -168,18 +166,5 @@ void note(void){
 	fclose(fp);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
