@@ -1,7 +1,7 @@
 
 #include "function.h"
 
-
+void check_edge(struct Edge e2[EDGE_NUMBER_BA]);
 
 void check_degree(struct Node n3[ONE_SIDE][ONE_SIDE]);
 
@@ -68,8 +68,8 @@ void set_edge_BA(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[EDGE_NUMBER_BA
 		else{
 			e[i].start=E[2*i+1];
 			e[i].finish=E[2*i];
-
-			printf("e[%d]: %d - %d\n",i,e[i].start,e[i].finish);
+			
+			
 		}
 	}
 	
@@ -77,9 +77,19 @@ void set_edge_BA(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[EDGE_NUMBER_BA
 	init_status(e);
 	input_status(nn,e);
 	
+	//check_edge(e);
 	//check_degree(nn);
 }
 
+
+//-------------------------------------------------------------------------------
+
+void check_edge(struct Edge e2[EDGE_NUMBER_BA]){
+	int i=0;
+	
+	for(i=0;i<EDGE_NUMBER_BA;i++)
+		printf("e[%d]: %d - %d\n",i,e2[i].start,e2[i].finish);
+}
 
 
 void check_degree(struct Node n3[ONE_SIDE][ONE_SIDE]){

@@ -131,9 +131,10 @@ void agree_SIR(struct Node nn[ONE_SIDE][ONE_SIDE] , int edgedot, int launch_x, i
 			return;
 		}
 
-		pro_infected=Uniform();
+		//pro_infected=Uniform();
+			pro_infected=1;
 
-		if(pro_infected<INFECTED_PROBABIRITY){
+		if(pro_infected>0){
 			Insert(edgedot/ONE_SIDE,edgedot%ONE_SIDE,&tail);
 			nn[edgedot/ONE_SIDE][edgedot%ONE_SIDE].height=nn[launch_x][launch_y].height+1;
 			nn[edgedot/ONE_SIDE][edgedot%ONE_SIDE].statement='I';

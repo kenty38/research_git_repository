@@ -56,8 +56,12 @@
 
 //辺の数
 #define EDGE_NUMBER				    4 * ONE_SIDE * ONE_SIDE						//WSの時
-
 #define EDGE_NUMBER_BA        ADD_EDGE*(ONE_SIDE*ONE_SIDE-ADD_EDGE)+(ADD_EDGE*(ADD_EDGE-1))/2
+
+//lifetimeを設定するときに使う変数
+#define LIFETIME_DAY					1
+
+#define INFECTED_PROBABIRITY 		23.84 / (ONE_SIDE * ONE_SIDE)		//感染率{情報共有者の平均を総人数で割ったもの(23.84/(ONE_SIDE*ONE_SIDE))}
 
 //辺の状態を示すための列挙型
 enum EDGE_STATUS{
@@ -65,7 +69,6 @@ enum EDGE_STATUS{
 	NONHOMOGENEOUS
 };
 
-#define INFECTED_PROBABIRITY 		23.84 / (ONE_SIDE * ONE_SIDE)		//感染率{情報共有者の平均を総人数で割ったもの(23.84/(ONE_SIDE*ONE_SIDE))}
 
 FILE *fp;							//ファイルへのポインタ
 char filename[FILENAME_MAX];		//ファイル名
@@ -76,7 +79,6 @@ float theta;					//ニュースの値
 int 	sir_time;					//時間
 int 	infected_count;				//感染者の人数
 float 	gamma_denominator;			//gammaの分母
-int 	lifetime_hour;				//lifetimeを設定するときに使う変数
 float 	large_gamma;				//回復率{(1/日数)で定義,大量にデータを確保する時はマクロではなくこちらを使用
 
 //Edgeの構造体
@@ -119,6 +121,8 @@ struct Cell *tail;
 extern void set_value(struct Node[][ONE_SIDE]);
 
 extern void set_firstInf(struct Node[][ONE_SIDE],int number);
+
+extern void set_firstInf_SIR(struct Node[][ONE_SIDE],int number);
 
 extern void set_edge(struct Node[][ONE_SIDE],struct Edge[]);
 
