@@ -1,0 +1,110 @@
+
+/************************************************
+ *												*
+ * void set_edge(struct Node)					*
+ * -辺の情報を格納する							*
+ * -隣接リストが生成されていないことに注意			*
+ * 												*
+ ************************************************/
+
+#include"function.h"
+
+void init_status(struct Edge e[EDGE_NUMBER_BA]);
+void input_status(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[EDGE_NUMBER_BA]);
+
+void set_edge(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[EDGE_NUMBER]){
+
+	int i,j,ii,jj;	//作業用変数
+	int value=0;	//0~Nまで辺の値を格納するために使われる作業用変数
+	int count;		//0~7までの値を取り、隣人の情報を得るために使われる
+	int ne[8];  	//隣人の情報を格納
+
+	//edge初期化
+	init_status(e);
+
+	for(i=0;i<ONE_SIDE;i++){
+			for(j=0;j<ONE_SIDE;j++){
+
+				//ムーア近傍の判定
+				count=0;
+
+				for(ii=-1;ii<=1;ii++){	//x軸固定
+					for(jj=-1;jj<=1;jj++){
+
+						//同じ点の時はスルー
+						if((nn[i][j].x+ii)==nn[i][j].x&&(nn[i][j].y+jj)==nn[i][j].y){
+							//printf("<%d> ",node[node[i][j].x][node[i][j].y].node_number);
+							continue;
+						}
+
+						//x,y共に負の時の周期境界による点の指定
+						if((nn[i][j].x+ii)<0 && (nn[i][j].y+jj)<0){
+							ne[count]=nn[ONE_SIDE-1][ONE_SIDE-1].node_number;
+						}
+						//xのみ負の時の点の指定
+						else if(nn[i][j].x+ii<0){
+							ne[count]=nn[ONE_SIDE-1][(nn[i][j].y+jj)%ONE_SIDE].node_number;
+						}
+						//yのみ負の時の点の指定
+						else if((nn[i][j].y+jj)<0){
+							ne[count]=nn[(nn[i][j].x+ii)%ONE_SIDE][ONE_SIDE-1].node_number;
+						}
+						//特別な条件がない時
+						else{
+							ne[count]=nn[(nn[i][j].x+ii)%ONE_SIDE][(nn[i][j].y+jj)%ONE_SIDE].node_number;
+						}
+
+						//(e[].s < e[].f)の時だけedgeに値を入れるようにする
+						if(nn[i][j].node_number<ne[count]){
+							e[value].start=nn[i][j].node_number;
+							e[value].finish=ne[count];
+							value++;
+						}
+
+						count++;
+						//for(l=0;l<8;l++)printf("%d:ne[%d]=%d\ONE_SIDE",nn[i][j].node_number,l,ne[l]);
+					}
+				}
+
+			}
+	}
+
+	input_status(nn,e);
+
+}
+
+
+
+
+void init_status(struct Edge e[EDGE_NUMBER]){
+	int i;
+
+	for(i = 0 ; i < EDGE_NUMBER_BA ; i++)
+		e[i].status=NONHOMOGENEOUS;
+}
+
+
+
+void input_status(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[EDGE_NUMBER]){
+
+	int i;
+
+	for(i = 0 ; i < EDGE_NUMBER_BA ; i++){
+
+		if(fabs(nn[e[i].start / ONE_SIDE][e[i].start % ONE_SIDE].omega - nn[e[i].finish / ONE_SIDE][e[i].finish % ONE_SIDE].omega) < DELTA){
+			e[i].status = HOMOGENEOUS;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
