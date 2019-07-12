@@ -6,6 +6,7 @@ struct Cell *head=NULL;
 void note(void);
 void display(struct Node[][ONE_SIDE]);
 void display_h(struct Node[][ONE_SIDE]);
+void statement_check(struct Node nn[ONE_SIDE][ONE_SIDE]);
 
 //-------------------------------------------<<main関数>>---------------------------------------------------------
 int main(){
@@ -44,7 +45,7 @@ int main(){
 			//初期情報共有者を分布に従って入れる
 			set_firstInf_SIR(node,first_shared);
 			
-			TraverseList(head);
+			//TraverseList(head);
 			
 			//辺の情報を格納
 			set_edge_BA(node,edge);
@@ -64,8 +65,7 @@ int main(){
 
 				//情報拡散
 				spreading_theories_SIR(node,edge);
-				for(i=0;i<ONE_SIDE*ONE_SIDE;i++)
-					printf("%d.statement=[%c]\n",node[i/ONE_SIDE][i%ONE_SIDE].node_number,node[i/ONE_SIDE][i%ONE_SIDE].statement);
+
 				exit(1);
 				//ファイル出力
 				file_value(node,edge);
@@ -89,6 +89,9 @@ int main(){
 
 	return 0;
 }
+
+
+
 
 
 
@@ -168,6 +171,14 @@ void note(void){
 	
 	fclose(fp);
 
+}
+
+
+void statement_check(struct Node nn[ONE_SIDE][ONE_SIDE]){
+	int i;
+	
+	for(i=0;i<ONE_SIDE*ONE_SIDE;i++)
+					printf("%d.statement=[%c]\n",nn[i/ONE_SIDE][i%ONE_SIDE].node_number,nn[i/ONE_SIDE][i%ONE_SIDE].statement);
 }
 
 

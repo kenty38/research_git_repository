@@ -61,7 +61,9 @@
 //lifetimeを設定するときに使う変数
 #define LIFETIME_DAY					1
 
-#define INFECTED_PROBABIRITY 		23.84 / (ONE_SIDE * ONE_SIDE)		//感染率{情報共有者の平均を総人数で割ったもの(23.84/(ONE_SIDE*ONE_SIDE))}
+//#define INFECTED_PROBABIRITY 		23.84 / (ONE_SIDE * ONE_SIDE)		//感染率{情報共有者の平均を総人数で割ったもの(23.84/(ONE_SIDE*ONE_SIDE))}
+#define INFECTED_PROBABIRITY		0.1
+#define REMEDY_PROBABIRITY      0.50
 
 //辺の状態を示すための列挙型
 enum EDGE_STATUS{
@@ -101,7 +103,7 @@ typedef struct Node{
 		int 	degree;			 //次数
 		int 	*ad_list;		 //隣接リスト
 		char 	statement;		 //SIRモデルにおける状態
-		int     lifetime;		 //隣人の数に応じて変わる、情報の寿命
+		int   accepting_count;		 //隣人の数に応じて変わる、情報を流すかどうか悩む回数
 }t_Node;
 
 

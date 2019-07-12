@@ -18,7 +18,7 @@ void init_for_next(struct Node nn[ONE_SIDE][ONE_SIDE],int *rep_p){
 	for(i=0;i<ONE_SIDE*ONE_SIDE;i++){
 		nn[i/ONE_SIDE][i%ONE_SIDE].height=0;
 		nn[i/ONE_SIDE][i%ONE_SIDE].statement='S';
-		nn[i/ONE_SIDE][i%ONE_SIDE].lifetime=LIFETIME_HOUR*(8/nn[i/ONE_SIDE][i%ONE_SIDE].degree);
+		nn[i/ONE_SIDE][i%ONE_SIDE].lifetime=LIFETIME_DAY*(8/nn[i/ONE_SIDE][i%ONE_SIDE].degree);
 	}
 
 

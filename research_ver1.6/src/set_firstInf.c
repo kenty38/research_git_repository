@@ -89,7 +89,7 @@ void set_firstInf_SIR(struct Node nn[ONE_SIDE][ONE_SIDE],int number){
 
 	i=0;
 
-	infected_count=4;
+	//infected_count=4;
 
 	//printf("共有者：%d\n",infected_count);
 
@@ -120,7 +120,7 @@ void set_firstInf_SIR(struct Node nn[ONE_SIDE][ONE_SIDE],int number){
 	}while(i<infected_count);
 	
 	
-	check_statement(nn);
+	//check_statement(nn);
 	fclose(fp);
 
 }

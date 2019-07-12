@@ -24,7 +24,7 @@ void set_value(struct Node nn[ONE_SIDE][ONE_SIDE]){
 				nn[i][j].cluster = 0;
 				nn[i][j].degree = 0;
 				nn[i][j].statement = 'S';
-				nn[i][j].lifetime=1;
+				nn[i][j].accepting_count=1;
 				value++;
 				}
 		}

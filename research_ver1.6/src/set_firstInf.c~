@@ -88,9 +88,9 @@ void set_firstInf_SIR(struct Node nn[ONE_SIDE][ONE_SIDE],int number){
 	}
 
 	i=0;
-#ifndef	DEBUG
-	infected_count=4;
-#endif
+
+	//infected_count=4;
+
 	//printf("共有者：%d\n",infected_count);
 
 	//初期情報共有者のデータを入力

@@ -1,9 +1,3 @@
-/*
- * file.c
- *
- *  Created on: 2017/10/31
- *      Author: f0416028-2
- */
 
 #include "function.h"
 
