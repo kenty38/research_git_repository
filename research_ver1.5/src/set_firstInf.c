@@ -20,13 +20,6 @@ void set_firstInf(struct Node nn[ONE_SIDE][ONE_SIDE],int number){
 
 	if(infected_count==0)infected_count=1;
 
-	if((fp=fopen(filename,"a"))==NULL){
-			printf("aファイルをオープンできません\n");
-			exit(1);
-	}
-	else{
-			fprintf(fp,"%d ",infected_count);
-	}
 
 	i=0;
 #ifndef DEBUG

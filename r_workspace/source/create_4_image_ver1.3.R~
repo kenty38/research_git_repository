@@ -76,7 +76,7 @@ for(kind_of_expand in 1 : 4 ){
   k_first<-c(1,11)
   k_end<-c(10,20)
   inc_hei<-c("increase","height")
-  main_thema<-c("increase and theta","height and theta")
+  main_thema<-c("increase and news content","height and news content")
   cols<-c("purple","green","blue","red","black")
   
   lty_status <- c("longdash" , "dotdash" , "dotted" , "dashed" , "solid")
@@ -93,7 +93,7 @@ for(kind_of_expand in 1 : 4 ){
       png(paste("/home/ax909424/r/image/",expand[kind_of_expand],"/",inc_hei[i],".png",sep=""),width=800,height=600)
       par(mar=c(5.5,6.0,4.1,2))
       par(mgp=c(4,1.2,0))
-      plot(0,0,type="n",xlim=range(0,10),ylim=range(0,20),xlab="theta",ylab=inc_hei[i],main=main_thema[i] , xaxt = "n" , yaxt = "n" ,cex.lab = 2.5 , cex.main = 2.5)
+      plot(0,0,type="n",xlim=range(0,10),ylim=range(0,20),xlab="news content",ylab=inc_hei[i],main=main_thema[i] , xaxt = "n" , yaxt = "n" ,cex.lab = 2.5 , cex.main = 2.5)
       
       #mar=c(5,0,4,2)+0.1
       #par(mgp=c(10,1,0))

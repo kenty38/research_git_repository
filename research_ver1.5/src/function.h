@@ -65,33 +65,28 @@ enum EDGE_STATUS{
 
 //ユーザーの好む話題一覧
 enum TOPICS_CATEGORY{
-	RELIGION,
-	POLITICS,
-	URBAN_LEGEND,
-	COMMERCE,
-	ENTERTAINMENT,
-	SCIENCE_TECHNOLOGY
+	RELIGION,							//宗教
+	POLITICS,							//政治
+	URBAN_LEGEND,					//都市伝説
+	COMMERCE,							//商業
+	ENTERTAINMENT,				//エンタメ
+	SCIENCE_TECHNOLOGY		//科学技術
 };
 
-#define INFECTED_PROBABIRITY 		23.84 / (ONE_SIDE * ONE_SIDE)		//感染率{情報共有者の平均を総人数で割ったもの(23.84/(ONE_SIDE*ONE_SIDE))}
 
-FILE *fp;							//ファイルへのポインタ
+FILE *fp,*fp2;									//ファイルへのポインタ
 char filename[FILENAME_MAX];		//ファイル名
+char filename2[FILENAME_MAX];		//ファイル名(それぞれの高さのカウント)
 
 float theta;					//ニュースの値
+float novel;					//奇抜さ
 
-//SIRモデル時に使用
-int 	sir_time;					//時間
-int 	infected_count;				//感染者の人数
-float 	gamma_denominator;			//gammaの分母
-int 	lifetime_hour;				//lifetimeを設定するときに使う変数
-float 	large_gamma;				//回復率{(1/日数)で定義,大量にデータを確保する時はマクロではなくこちらを使用
 
 //Edgeの構造体
 struct Edge{
-	int status;			//思考ベクトル
-	int start;				//始点（s<f）
-	int finish;				//終点
+	int start;					//始点（s<f）
+	int finish;					//終点
+	float intimacy;			//親密さ
 };
 
 //Nodeの構造体
@@ -132,6 +127,8 @@ extern void set_firstInf(struct Node[][ONE_SIDE],int number);
 extern void set_edge(struct Node[][ONE_SIDE],struct Edge[]);
 
 extern void rewiring_network(struct Node[][ONE_SIDE],struct Edge[]);
+
+extern void get_edge_weight(struct Edge[]);
 
 extern void make_ad_list(struct Node[][ONE_SIDE],struct Edge[]);
 
@@ -174,6 +171,8 @@ extern void Swap(int x[],int i,int j);
 
 //ファイルへ入力するための関数
 extern void file_value(struct Node[][ONE_SIDE],struct Edge[]);
+
+extern void calculate_feature_value(struct Node[][ONE_SIDE],struct Edge[]);
 
 #define FUNCTION_H_
 #endif /* FUNCTION_H_ */

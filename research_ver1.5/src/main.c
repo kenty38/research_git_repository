@@ -16,11 +16,12 @@ int main(){
 	int init_timer=0;	//特定回数数えたときに初期化するために必要なカウント
 	int first_shared;	//初期共有者の現在の数
 
-	struct Node node[ONE_SIDE][ONE_SIDE];		//点の定義、辺の定義,情報共有者の定義
-	struct Edge edge[EDGE_NUMBER];				//辺の定義、BAの時とそれ以外で異なる
-
 	//シード値入力
 	srand((unsigned)time(NULL));
+
+	struct Node node[ONE_SIDE][ONE_SIDE];		//点の定義、辺の定義,情報共有者の定義
+	struct Edge edge[EDGE_NUMBER];				//辺の定義、BAの時とそれ以外で異なる
+	
 
 	clock_t start,end;
 	start = clock();
@@ -33,8 +34,10 @@ int main(){
 
 		for(i=0;i<REP_AVERAGE;i++){
 			theta=0.0;
+			
 			//ファイル名記入
 			sprintf(filename,"../data/result/value_first=%d.txt",first_shared+1);
+			sprintf(filename2,"../data/result/value_first=%d_hc.txt",first_shared+1);
 
 			//格子の要素, x座標, y座標を入れる
 			set_value(node);
@@ -48,6 +51,8 @@ int main(){
 			//ネットワークの繋ぎ直し
 			rewiring_network(node,edge);
 			//for(i=0;i<N;i++)printf("edge[%d]=%d - %d\n",i,edge[i].s,edge[i].f);
+			
+			//get_edge_weight();
 
 			//隣接リスト生成
 			make_ad_list(node,edge);

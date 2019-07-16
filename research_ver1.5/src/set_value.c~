@@ -1,9 +1,3 @@
-/*
- *
- * set_value.c
- *  Created on: 2017/10/24
- *      Author: f0416028-2
- */
 
 /************************************************
  *												*
@@ -29,6 +23,7 @@ void set_value(struct Node nn[ONE_SIDE][ONE_SIDE]){
 				nn[i][j].height = 0;
 				nn[i][j].cluster = 0;
 				nn[i][j].degree = 0;
+				nn[i][j].favorite_topics=0;
 				value++;
 				}
 		}

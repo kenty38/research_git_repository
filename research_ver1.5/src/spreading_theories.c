@@ -17,7 +17,6 @@ void spreading_theories(struct Node nn[ONE_SIDE][ONE_SIDE], struct Edge e[EDGE_N
 	struct Cell *temp;		//headの位置を一時的に覚えておくためのセルポインタ
 
 	temp=head;
-	//TraverseList(head);
 
 	do{
 		//printf("spreading_theories : temp=[%d][%d]\ONE_SIDE",temp->x,temp->y);

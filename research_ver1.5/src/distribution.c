@@ -1,5 +1,4 @@
 
-
 #include"function.h"
 
 //0~1の乱数

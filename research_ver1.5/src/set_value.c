@@ -23,6 +23,7 @@ void set_value(struct Node nn[ONE_SIDE][ONE_SIDE]){
 				nn[i][j].height = 0;
 				nn[i][j].cluster = 0;
 				nn[i][j].degree = 0;
+				nn[i][j].favorite_topics=Uniform()*6;
 				value++;
 				}
 		}

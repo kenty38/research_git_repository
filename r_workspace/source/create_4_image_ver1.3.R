@@ -31,7 +31,7 @@ X_LABEL          <- 1
 Y_LABEL          <- 2
 
 
-for(kind_of_expand in 1 : 4 ){
+for(kind_of_expand in 1 : 4 ){ 
 #------create total data matrix( 10000 colums * 220 rows)-----------------
   for(i in 1 : MAX_FIRST_SHARE){
     #filenameにファイル名を入れて、valueにその値を格納

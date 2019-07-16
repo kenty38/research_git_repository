@@ -11,7 +11,7 @@ void file_value(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[ONE_SIDE]){
 
 	temp=head;
 	//共有者の情報
-	if((fp=fopen(filename,"a"))==NULL){
+	if((fp=fopen(filename,"a"))==NULL && fp=fopen(filename2,"a"))==NULL){
 		printf("ファイルをオープンできません\n");
 		exit(1);
 	}
@@ -28,13 +28,18 @@ void file_value(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[ONE_SIDE]){
 			temp=temp->next;
 
 		}while(temp!=NULL);
-
+		
+		fprintf(fp,"%d ",infected_count);		//初期感染者
+		fprintf(fp,"%d ",people);						//総人数
+		fprintf(fp,"%d ",max);	  					//最大の深さ
+		fprintf(fp,"%.2f\n",theta);					//ニュースの値
+		
+		
+		for(i=0;i<max;i++)
+			fprintf(fp2,"%d ",height_count[i]);
+		
+		fprintf(fp2,"\n");
 	}
-
-		fprintf(fp,"%d ",people);//総人数
-		fprintf(fp,"%d ",max);	  //最大の深さ
-		fprintf(fp,"%.2f\n",theta);
-
 
 		free(height_count);
 		fclose(fp);

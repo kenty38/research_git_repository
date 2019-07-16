@@ -15,11 +15,8 @@ void init_for_next(struct Node nn[ONE_SIDE][ONE_SIDE],int *rep_p){
 	int i;	//作業用変数
 
 	//深さと状態を初期化
-	for(i=0;i<ONE_SIDE*ONE_SIDE;i++){
+	for(i=0;i<ONE_SIDE*ONE_SIDE;i++)
 		nn[i/ONE_SIDE][i%ONE_SIDE].height=0;
-		nn[i/ONE_SIDE][i%ONE_SIDE].statement='S';
-		nn[i/ONE_SIDE][i%ONE_SIDE].lifetime=lifetime_hour*(8/nn[i/ONE_SIDE][i%ONE_SIDE].degree);
-	}
 
 
 	//情報共有者リストを初期化

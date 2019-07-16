@@ -1,10 +1,3 @@
-/*
- * spreading_theories.c
- *
- *  Created on: 2017/10/24
- *      Author: f0416028-2
- */
-
 
 #include"function.h"
 
