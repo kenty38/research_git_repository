@@ -100,3 +100,10 @@ void input_status(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[EDGE_NUMBER])
 
 
 
+
+
+
+
+
+
+
