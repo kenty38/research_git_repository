@@ -4,7 +4,7 @@
 struct Cell *head=NULL;
 
 void note(void);
-void display(struct Node[][ONE_SIDE]);
+void display_topic(struct Node[][ONE_SIDE]);
 void display_h(struct Node[][ONE_SIDE]);
 
 //-------------------------------------------<<main関数>>---------------------------------------------------------
@@ -37,11 +37,10 @@ int main(){
 			
 			//ファイル名記入
 			sprintf(filename,"../data/result/value_first=%d.txt",first_shared+1);
-			sprintf(filename2,"../data/result/value_first=%d_hc.txt",first_shared+1);
 
 			//格子の要素, x座標, y座標を入れる
 			set_value(node);
-
+			
 			//初期情報共有者を分布に従って入れる
 			set_firstInf(node,first_shared);
 
@@ -66,12 +65,15 @@ int main(){
 				//特定回数の反復が終えたらthetaの値を増加する
 				if(rep_news>1 && rep_news % REP_THETA_FIXATION == 0)
 					theta+=THETA_INCREASE;
-
+        puts("sp");
+        
+        display_h(node);
+        TraverseList(head);
 				//情報拡散
 				spreading_theories(node,edge);
 
 				//ファイル出力
-				file_value(node,edge);
+				file_value(node,edge,first_shared);
 
 				//次の拡散のための初期化
 				init_for_next(node,&init_timer);
@@ -95,16 +97,13 @@ int main(){
 
 
 
-
-
-
 //-------------------------------------------------<<表示するための簡易な関数>>--------------------------------------------------------
 
-void display(struct Node nn[ONE_SIDE][ONE_SIDE]){
+void display_topic(struct Node nn[ONE_SIDE][ONE_SIDE]){
 	int i,j;
 	for(i=0;i<ONE_SIDE;i++){
 		for(j=0;j<ONE_SIDE;j++)
-			printf("node[%d][%d].statement=%c\n",i,j,nn[i][j].statement);
+			printf("node[%d][%d].favo_topics=%d\n",i,j,nn[i][j].favorite_topic);
 	}
 
 }
@@ -126,14 +125,14 @@ void note(void){
 		REPRODUCTION   ,
 		HOMOGENEITY	   ,
 		PREJUDICE      ,
-		HOMO_BIAS
+		HOMO_BIAS      ,
+		FAVO_TOPICS
 	};
 
 	int flag = REPRODUCTION;
 
 #ifdef HOMO_PATH
 	flag = HOMOGENEITY;
-	strcpy(expand);
 #endif
 
 #ifdef BIAS
@@ -174,18 +173,6 @@ void note(void){
 	fclose(fp);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -13,7 +13,7 @@
 void set_firstInf(struct Node nn[ONE_SIDE][ONE_SIDE],int number){
 	int i;			//作業用変数
 	int f_shared;	//初期情報共有者のノード番号をランダムに決める
-
+  int infected_count;
 
 	//初期共有者の値をinfected_countへ代入
 	infected_count=number+1;
@@ -43,7 +43,7 @@ void set_firstInf(struct Node nn[ONE_SIDE][ONE_SIDE],int number){
 
 			//値の変更
 			//nn[f_shared/n][f_shared%n].omega=theta+delta;
-
+      TraverseList(head);
 			nn[f_shared/ONE_SIDE][f_shared%ONE_SIDE].node_theta=nn[f_shared/ONE_SIDE][f_shared%ONE_SIDE].omega+(2*Uniform()-1)*0.015;
 			//nn[f_shared/n][f_shared%n].deltaex=delta+Uniform()*2*delta;
 			i++;

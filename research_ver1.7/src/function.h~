@@ -11,15 +11,11 @@
 #define WS			      	//論文のシミュレーションを行う時
 #define NON_DESTRIBUTION//初期共有者人数を固定して行う
 
-#define HOMO_PATH
+//#define HOMO_PATH
 //#define BIAS
 
-#ifndef DEBUG
-	#define ONE_SIDE 4
-#endif
-
 //ONE_SIDE*nで総人数になる
-#define ONE_SIDE 	       			    70
+#define ONE_SIDE 	       			    4
 
 //グラフの辺の総本数*rでつなぎ直す辺の数
 #define REWIRING_COUNT              	ONE_SIDE * ONE_SIDE * 0.01
@@ -65,8 +61,8 @@ enum EDGE_STATUS{
 
 //ユーザーの好む話題一覧
 enum TOPICS_CATEGORY{
+  POLITICS,							//政治
 	RELIGION,							//宗教
-	POLITICS,							//政治
 	URBAN_LEGEND,					//都市伝説
 	COMMERCE,							//商業
 	ENTERTAINMENT,				//エンタメ
@@ -74,9 +70,8 @@ enum TOPICS_CATEGORY{
 };
 
 
-FILE *fp,*fp2;									//ファイルへのポインタ
+FILE *fp;									//ファイルへのポインタ
 char filename[FILENAME_MAX];		//ファイル名
-char filename2[FILENAME_MAX];		//ファイル名()
 
 float theta;					//ニュースの値
 float novel;					//奇抜さ
@@ -86,24 +81,24 @@ float novel;					//奇抜さ
 struct Edge{
 	int start;					//始点（s<f）
 	int finish;					//終点
+	int status;
 	float intimacy;			//親密さ
 };
 
 //Nodeの構造体
 typedef struct Node{
-		int 	node_number;	 //各ノードに振り分ける番号で、これにより座標を獲得する
-		float 	omega;   	 	 //option
-		float 	node_theta;	 //共有者によって変えられるtheta
-		float  deltaex;
-		int 	x;				 		　//x座標
-		int 	y;				 		　//y座標
-		int 	height;			 	　//高さ
-		double cluster;	 	 	　//クラスター係数
-		int 	degree;			 	　//次数
-		int 	*ad_list;		 	　//隣接リスト
-		char 	statement;		 //SIRモデルにおける状態
-		int favorite_topic;	 //好きな話題
-		int     lifetime;		 //隣人の数に応じて変わる、情報の寿命
+  int node_number;   //各ノードに振り分ける番号で、これにより座標を獲得する
+  float omega;       //option
+  float node_theta;  //共有者によって変えられるtheta
+  float deltaex;
+  int x;
+  int y;
+  int height;
+  double cluster;
+  int degree;
+  int *ad_list;
+  int favorite_topic;
+  int lifetime;
 }t_Node;
 
 
@@ -170,9 +165,7 @@ extern void Qsort(int x[],int left,int right);
 extern void Swap(int x[],int i,int j);
 
 //ファイルへ入力するための関数
-extern void file_value(struct Node[][ONE_SIDE],struct Edge[]);
-
-extern void calculate_feature_value(struct Node[][ONE_SIDE],struct Edge[]);
+extern void file_value(struct Node[][ONE_SIDE],struct Edge[],int number);
 
 #define FUNCTION_H_
 #endif /* FUNCTION_H_ */

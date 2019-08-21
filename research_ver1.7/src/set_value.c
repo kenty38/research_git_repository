@@ -8,6 +8,10 @@
 
 #include "function.h"
 
+int decide_topics(void);
+
+
+//---------------------<<main>>------------------------------------------------------
 void set_value(struct Node nn[ONE_SIDE][ONE_SIDE]){
 	int i,j;
 	int value=0;
@@ -23,8 +27,33 @@ void set_value(struct Node nn[ONE_SIDE][ONE_SIDE]){
 				nn[i][j].height = 0;
 				nn[i][j].cluster = 0;
 				nn[i][j].degree = 0;
-				nn[i][j].favorite_topics=Uniform()*6;//
+				nn[i][j].favorite_topic=decide_topics();
 				value++;
 				}
 		}
 }
+
+
+
+//----------------------------------------------------------------------------------
+int decide_topics(void){
+  float topics_number;
+  
+  topics_number=Uniform();
+  
+  if(topics_number>=0 && topics_number<0.3)
+    return POLITICS;
+  else if(topics_number>=0.3 && topics_number<0.55)
+    return RELIGION;
+  else if(topics_number>=0.55 && topics_number<0.70)
+    return URBAN_LEGEND;
+  else if(topics_number>=0.70 && topics_number<0.85)
+    return COMMERCE;
+  else if(topics_number>=0.85 && topics_number<0.95)
+    return ENTERTAINMENT;
+  else
+    return SCIENCE_TECHNOLOGY;
+}
+
+
+

@@ -19,7 +19,7 @@ void spreading_theories(struct Node nn[ONE_SIDE][ONE_SIDE], struct Edge e[EDGE_N
 	temp=head;
 
 	do{
-		//printf("spreading_theories : temp=[%d][%d]\ONE_SIDE",temp->x,temp->y);
+		printf("spreading_theories : temp=[%d][%d]",temp->x,temp->y);
 
 		i=0;
 
