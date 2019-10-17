@@ -40,10 +40,10 @@ int main(){
 
 			//格子の要素, x座標, y座標を入れる
 			set_value(node);
-			
+			TraverseList(head);
 			//初期情報共有者を分布に従って入れる
 			set_firstInf(node,first_shared);
-
+      //TraverseList(head);
 			//辺の情報を格納
 			set_edge(node,edge);
 
@@ -112,7 +112,7 @@ void display_h(struct Node nn[ONE_SIDE][ONE_SIDE]){
 	int i,j;
 	for(i=0;i<ONE_SIDE;i++){
 		for(j=0;j<ONE_SIDE;j++)
-			printf("node[%d][%d].height=%d\n",i,j,nn[i][j].height);
+			printf("node[%d][%d].degree=%d\n",i,j,nn[i][j].degree);
 	}
 
 }

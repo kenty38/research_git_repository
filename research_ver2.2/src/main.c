@@ -4,8 +4,9 @@
 struct Cell *head=NULL;
 
 void note(void);
-void display_topic(struct Node[][ONE_SIDE]);
+void display(struct Node[][ONE_SIDE]);
 void display_h(struct Node[][ONE_SIDE]);
+void statement_check(struct Node nn[ONE_SIDE][ONE_SIDE]);
 
 //-------------------------------------------<<main関数>>---------------------------------------------------------
 int main(){
@@ -16,17 +17,18 @@ int main(){
 	int init_timer=0;	//特定回数数えたときに初期化するために必要なカウント
 	int first_shared;	//初期共有者の現在の数
 
-	//シード値入力
-	srand((unsigned)time(NULL));
-
 	struct Node node[ONE_SIDE][ONE_SIDE];		//点の定義、辺の定義,情報共有者の定義
 	struct Edge edge[EDGE_NUMBER];				//辺の定義、BAの時とそれ以外で異なる
-	
+
+	//シード値入力
+	srand((unsigned)time(NULL));
 
 	clock_t start,end;
 	start = clock();
 
-	note();
+	//note();
+	
+	//set_edge_BA(node,edge);
 
 	for(first_shared = 0 ; first_shared < MAX_FIRST_SHARE ; first_shared++){
 
@@ -34,52 +36,42 @@ int main(){
 
 		for(i=0;i<REP_AVERAGE;i++){
 			theta=0.0;
-			
 			//ファイル名記入
 			sprintf(filename,"../data/result/value_first=%d.txt",first_shared+1);
 
 			//格子の要素, x座標, y座標を入れる
 			set_value(node);
-			TraverseList(head);
+			
 			//初期情報共有者を分布に従って入れる
-			set_firstInf(node,first_shared);
-      //TraverseList(head);
+			set_firstInf_SIR(node,first_shared);
+			
+			//TraverseList(head);
+			
 			//辺の情報を格納
 			set_edge(node,edge);
-
-			//ネットワークの繋ぎ直し
-			rewiring_network(node,edge);
-			//for(i=0;i<N;i++)printf("edge[%d]=%d - %d\n",i,edge[i].s,edge[i].f);
 			
-			//get_edge_weight();
-			display_h(node);
+			rewiring_network(node,edge);
+			
 			//隣接リスト生成
 			make_ad_list(node,edge);
-
-#ifdef HOMO_PATH
-			make_homogeneous(node,edge);
-#endif
-
+			
 			//ニュースを特定回数ネットワークに投げる
 			for(rep_news = 0 ; rep_news < MAX_REP_NEWS ; rep_news++){
 				//特定回数の反復が終えたらthetaの値を増加する
 				if(rep_news>1 && rep_news % REP_THETA_FIXATION == 0)
 					theta+=THETA_INCREASE;
-        puts("sp");
-        
-        display_h(node);
-        TraverseList(head);
+
 				//情報拡散
-				spreading_theories(node,edge);
+				spreading_theories_SIR(node,edge);
 
 				//ファイル出力
-				file_value(node,edge,first_shared);
+				file_value(node,edge);
 
 				//次の拡散のための初期化
 				init_for_next(node,&init_timer);
 
 				if(rep_news != MAX_REP_NEWS-1)
-					set_firstInf(node,first_shared);
+					set_firstInf_SIR(node,first_shared);
 			}
 
 			//それぞれの隣接リスト(動的配列)の解放
@@ -97,13 +89,17 @@ int main(){
 
 
 
+
+
+
+
 //-------------------------------------------------<<表示するための簡易な関数>>--------------------------------------------------------
 
-void display_topic(struct Node nn[ONE_SIDE][ONE_SIDE]){
+void display(struct Node nn[ONE_SIDE][ONE_SIDE]){
 	int i,j;
 	for(i=0;i<ONE_SIDE;i++){
 		for(j=0;j<ONE_SIDE;j++)
-			printf("node[%d][%d].favo_topics=%d\n",i,j,nn[i][j].favorite_topic);
+			printf("node[%d][%d].degree=%d\n",i,j,nn[i][j].degree);
 	}
 
 }
@@ -112,7 +108,7 @@ void display_h(struct Node nn[ONE_SIDE][ONE_SIDE]){
 	int i,j;
 	for(i=0;i<ONE_SIDE;i++){
 		for(j=0;j<ONE_SIDE;j++)
-			printf("node[%d][%d].degree=%d\n",i,j,nn[i][j].degree);
+			printf("node[%d][%d].height=%d\n",i,j,nn[i][j].height);
 	}
 
 }
@@ -125,14 +121,14 @@ void note(void){
 		REPRODUCTION   ,
 		HOMOGENEITY	   ,
 		PREJUDICE      ,
-		HOMO_BIAS      ,
-		FAVO_TOPICS
+		HOMO_BIAS
 	};
 
 	int flag = REPRODUCTION;
 
 #ifdef HOMO_PATH
 	flag = HOMOGENEITY;
+	strcpy(expand);
 #endif
 
 #ifdef BIAS
@@ -174,5 +170,12 @@ void note(void){
 
 }
 
+
+void statement_check(struct Node nn[ONE_SIDE][ONE_SIDE]){
+	int i;
+	
+	for(i=0;i<ONE_SIDE*ONE_SIDE;i++)
+					printf("%d.statement=[%c]\n",nn[i/ONE_SIDE][i%ONE_SIDE].node_number,nn[i/ONE_SIDE][i%ONE_SIDE].statement);
+}
 
 
