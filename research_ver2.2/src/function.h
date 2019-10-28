@@ -154,7 +154,7 @@ extern void Qsort(int x[],int left,int right);
 extern void Swap(int x[],int i,int j);
 
 //ファイルへ入力するための関数
-extern void file_value(struct Node[][ONE_SIDE],struct Edge[]);
+extern void file_value(struct Node[][ONE_SIDE],struct Edge[],int number);
 
 #define FUNCTION_H_
 #endif /* FUNCTION_H_ */
