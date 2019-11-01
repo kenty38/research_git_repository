@@ -1,0 +1,11 @@
+------folder copy--------
+git clone http://"url_name"
+
+
+------upload-------
+git add *
+git commit -m "comment"
+git push origin master 
+
+-----download----------
+git pull origin master
