@@ -63,7 +63,7 @@ int main(){
 				spreading_theories_SIR(node,edge);
 			
 			//ファイル出力
-			file_value(node,edge,first_shared);
+			//file_value(node,edge,first_shared);
 
 			//次の拡散のための初期化
 			init_for_next(node,&init_timer);

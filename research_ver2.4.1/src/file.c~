@@ -23,6 +23,7 @@ void file_value(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[ONE_SIDE],int n
 
 		people+=(nn[temp->x][temp->y].population * INF_RATE);
 		strcat(tmp,nn[temp->x][temp->y].name);	
+		printf("tmp=%s\n",tmp);
 		
 		if(temp->next!=NULL)
 			strcat(tmp," ");
