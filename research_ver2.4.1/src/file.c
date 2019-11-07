@@ -3,6 +3,7 @@
 
 void file_value(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[ONE_SIDE],int number){
 	int i;
+	int source_cnt=number+1;
 	int people=0;
 	int max=0;
 	char tmp[256]={""};
@@ -21,7 +22,15 @@ void file_value(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[ONE_SIDE],int n
 	//総感染人口の算出
 	do{
 
-		people+=(nn[temp->x][temp->y].population * INF_RATE);
+		people+=(nn[temp->x][temp->y].population * INF_PEOPLE_RATE);
+
+#ifdef	DETECT_SOURCE		
+		if(source_cnt != 0){
+			strcat(tmp,"*");
+			source_cnt--;
+		}
+#endif
+			
 		strcat(tmp,nn[temp->x][temp->y].name);	
 		//printf("tmp=%s\n",tmp);
 		

@@ -51,7 +51,7 @@
 #define INFECTED_PROBABIRITY		0.02
 #define REMEDY_PROBABIRITY      1/5*8.0
 
-#define INF_RATE 1
+#define INF_RATE 0.10
 #define INFECTION_PERIOD 7
 
 //辺の状態を示すための列挙型

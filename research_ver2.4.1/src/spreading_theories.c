@@ -65,8 +65,7 @@ void spreading_theories_SIR(struct Node nn[ONE_SIDE][ONE_SIDE], struct Edge e[ED
 				infected_count--;
 			}
 			
-			nn[temp->x][temp->y].lifetime++;
-			
+			nn[temp->x][temp->y].lifetime++;		
 			temp=temp->next;
 
 		}while(temp!=NULL);

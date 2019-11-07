@@ -133,7 +133,7 @@ extern void rewiring_network(struct Node[][ONE_SIDE],struct Edge[]);
 
 extern void make_ad_list(struct Node[][ONE_SIDE],struct Edge[]);
 
-extern void spreading_theories_SIR(struct Node[][ONE_SIDE],struct Edge[]);
+extern void spreading_theories(struct Node[][ONE_SIDE],struct Edge[]);
 
 extern void init_for_next(struct Node[][ONE_SIDE],int *);
 

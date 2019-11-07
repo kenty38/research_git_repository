@@ -7,16 +7,7 @@
 #include<time.h>
 #include<string.h>
 
-#define DEBUG			  	//一回のみシミュレーションを行う時
-#define WS			      	//論文のシミュレーションを行う時
-#define NON_DESTRIBUTION//初期共有者人数を固定して行う
-
-//#define HOMO_PATH
-//#define BIAS
-
-#ifndef DEBUG
-	#define ONE_SIDE 4
-#endif
+#define DETECT_SOURCE
 
 //ONE_SIDE*nで総人数になる
 #define ONE_SIDE 	       			    15
@@ -51,7 +42,7 @@
 #define INFECTED_PROBABIRITY		0.02
 #define REMEDY_PROBABIRITY      1/5*8.0
 
-#define INF_RATE 1.0
+#define INF_RATE 0.10
 #define INFECTION_PERIOD 7
 
 //辺の状態を示すための列挙型
@@ -121,7 +112,7 @@ struct Cell *tail;
 
 //多重配列のプロトタイプ宣言は最後に数値を入れる
 //main関数に使われる関数
-extern void set_value(struct Node[][ONE_SIDE],int number);
+extern void set_value(struct Node[][ONE_SIDE]);
 
 extern void set_firstInf(struct Node[][ONE_SIDE],int number);
 

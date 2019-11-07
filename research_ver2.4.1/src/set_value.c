@@ -8,7 +8,7 @@
 
 #include "function.h"
 
-void set_value(struct Node nn[ONE_SIDE][ONE_SIDE],int number){
+void set_value(struct Node nn[ONE_SIDE][ONE_SIDE]){
 	int i=0;
 	
 	FILE *fp2;
@@ -36,9 +36,8 @@ void set_value(struct Node nn[ONE_SIDE][ONE_SIDE],int number){
 				nn[i/ONE_SIDE][i%ONE_SIDE].degree = 0;
 				nn[i/ONE_SIDE][i%ONE_SIDE].statement = 'S';
 				nn[i/ONE_SIDE][i%ONE_SIDE].lifetime=INFECTION_PERIOD;
-				
-				if(number==0)
-					nn[i/ONE_SIDE][i%ONE_SIDE].source_of_infection=STILL;	
+				nn[i/ONE_SIDE][i%ONE_SIDE].source_of_infection=STILL;	
+					
 				//population,name,space
 				
 				//printf("%s %d %d %d %d %.1f\n",nn[i/ONE_SIDE][i%ONE_SIDE].name,nn[i/ONE_SIDE][i%ONE_SIDE].x,nn[i/ONE_SIDE][i%ONE_SIDE].y,nn[i/ONE_SIDE][i%ONE_SIDE].population,nn[i/ONE_SIDE][i%ONE_SIDE].space,nn[i/ONE_SIDE][i%ONE_SIDE].popu_dens);
