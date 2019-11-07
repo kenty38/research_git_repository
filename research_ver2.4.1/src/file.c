@@ -4,7 +4,7 @@
 void file_value(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[ONE_SIDE],int number){
 	int i;
 	int source_cnt=number+1;
-	float people=0;
+	int people=0;
 	int max=0;
 	char tmp[256]={""};
 	
@@ -44,7 +44,7 @@ void file_value(struct Node nn[ONE_SIDE][ONE_SIDE],struct Edge e[ONE_SIDE],int n
 	temp=head;
 
 	//fprintf(fp,"%d ",number+1);
-	fprintf(fp,"%4.3f ",people);//総人数
+	fprintf(fp,"%4d ",people);//総人数
 	//fprintf(fp,"%s\n",nn[temp->x][temp->y].name);
 	fprintf(fp,"%s\n",tmp);	
 		
